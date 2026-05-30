@@ -2,8 +2,8 @@
 
 ## List of things To-Do in Speedster:
 
-- rendering fix
-    [ ] make point visible triangle recreator
+[] rendering fix
+    - make point visible triangle recreator
         - 2 visible
         - 1 visible
     - distance filtering
