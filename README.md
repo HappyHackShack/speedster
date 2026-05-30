@@ -1,5 +1,3 @@
-# Markdown Notepad
-
 ## List of things To-Do in Speedster:
 
 - [ ] rendering fix
@@ -19,7 +17,7 @@
     - [ ] height map (3d bezier curves)
     - [ ] track generation (2d bezier curve with width)
     - [ ] colour map
-    - [ ] water ?
+    - water ?
 - [ ] proper camera movement
     - [ ] follow an object's pos
     - [ ] follow angle loosely/delayed
@@ -53,37 +51,10 @@
     - item boxes
     - <b>summonable M1 Abrams main battle tank (up for interpretations)</b>
 
-## Markdown syntax
-
 ### Line count command
 ```bash
 find . -name '*.h' | xargs wc -l
 ```
 
+### Useful websits
 - https://www.w3schools.com/cpp/cpp_conditions_shorthand.asp
-
-### Examples
-
-- [ ] example 1
-- [x] *example* 2
-- [ ] **example** 3
-- <a>example</a> 4
-- <b>example</b> 5
-- <i>example</i> 6
-- <q>example</q> 7
-- <s>example</s> 8
-
----
-
-* a*a***a*****a***
-
-> Indented
-
-## XOR gate
-
-a | b | out
--|-|-
-0|0|0
-0|1|1
-1|0|1
-1|1|0
