@@ -22,7 +22,7 @@
     - [ ] follow an object's pos
     - [ ] follow angle loosely/delayed
 
-## [ ] <b>Physics</b>
+## <b>Physics</b>
 - [ ] speed
 - [ ] acceleration
 - [ ] friction
