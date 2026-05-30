@@ -4,34 +4,34 @@
 
 - [ ] rendering fix
     - [ ] make point visible triangle recreator
-        - [] 2 visible
+        - [ ] 2 visible
         - [x] 1 visible
-    - distance filtering
-    - surface elimination
+    - [ ] distance filtering
+    - [ ] surface elimination
     - depth?
-- <b>make car model(s)</b>
-- 2d shapes
-    - overlays
-    - text
-    - -> menu
-- background (panoramic image based on angle)
-- map generator
-    - height map (3d bezier curves)
-    - track generation (2d bezier curve with width)
-    - colour map
-    - water ?
-- proper camera movement
-    - follow an object's pos
-    - follow angle loosely/delayed
+- [ ] <b>make car model(s)</b>
+- [ ] 2d shapes
+    - [ ] overlays
+    - [ ] text
+    - [ ] -> menu
+- [ ] background (panoramic image based on angle)
+- [ ] map generator
+    - [ ] height map (3d bezier curves)
+    - [ ] track generation (2d bezier curve with width)
+    - [ ] colour map
+    - [ ] water ?
+- [ ] proper camera movement
+    - [ ] follow an object's pos
+    - [ ] follow angle loosely/delayed
 
-## <b>Physics</b>
-- speed
-- acceleration
-- friction
-- gearshift :
-    - rpm variable (also for overlay)
-    - ->modifiers on speed
-- collisions
+## [ ] <b>Physics</b>
+- [ ] speed
+- [ ] acceleration
+- [ ] friction
+- [ ] gearshift :
+    - [ ] rpm variable (also for overlay)
+    - [ ] ->modifiers on speed
+- [ ] collisions
 - air with ramps ?
 - drifting ?
 - air resistance ?
