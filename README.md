@@ -4,7 +4,7 @@
 
 - [ ] rendering fix
     - [ ] make point visible triangle recreator
-        - [y] 2 visible
+        - [] 2 visible
         - [x] 1 visible
     - distance filtering
     - surface elimination
