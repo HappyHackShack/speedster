@@ -49,12 +49,16 @@
     - fuel gauge
     - nitro boost
     - item boxes
-    - <b>summonable M1 Abrams main battle tank (up for interpretations)</b>
+    - <b>summonable M1 Abrams main battle tank <i>(up for interpretations)</i></b>
 
 ### Line count command
 ```bash
 find . -name '*.h' | xargs wc -l
 ```
 
-### Useful websits
-- https://www.w3schools.com/cpp/cpp_conditions_shorthand.asp
+### Useful websites
+- https://www.w3schools.com/cpp/default.asp
+- https://www.geeksforgeeks.org/cpp/c-plus-plus/
+- https://en.wikipedia.org/wiki/Horizon_Chase
+- https://www.desmos.com/
+- https://github.com/HappyHackShack/speedster
