@@ -5,6 +5,7 @@
         - [ ] 2 visible
         - [x] 1 visible
     - [x] optional surfaces
+    - [x] optional shapes
     - [ ] distance filtering
     - [ ] surface elimination
     - depth?

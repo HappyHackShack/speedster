@@ -3,7 +3,7 @@
 
 #include "../_config.h"
 #include "../vector3.h"
-#include "../primitives/primitive.h"
+#include "../primitives/all.h"
 
 class Object
 {

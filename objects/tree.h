@@ -1,10 +1,7 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include "../_config.h"
-#include "../vector3.h"
 #include "object.h"
-#include "../primitives/all.h"
 
 const unsigned tree_sections = 8;
 

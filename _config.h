@@ -36,17 +36,19 @@ const int SCRN_W_4 = SCRN_W / 4;
 const int SCRN_3H_4 = 3 * SCRN_H / 4;
 const int SCRN_H_4 = SCRN_H / 4;
 
-#define COL_CLEAR SDL_FColor{0.0, 0.0, 0.0, 0.0}
-#define COL_DARK SDL_FColor{0.0, 0.0, 0.0, 1.0}
-#define COL_BRIGHT SDL_FColor{1.0, 1.0, 1.0, 1.0}
-#define COL_R SDL_FColor{1.0, 0.0, 0.0, 1.0}
-#define COL_G SDL_FColor{0.0, 1.0, 0.0, 1.0}
-#define COL_B SDL_FColor{0.0, 0.0, 1.0, 1.0}
-#define COL_WOOD SDL_FColor{0.65, 0.50, 0.39, 1.0}
-#define COL_SLATE SDL_FColor{112.0 / 256, 128.0 / 256, 144.0 / 256, 1.0}
-#define COL_LEAVES SDL_FColor{0.0, 0.7, 0.0, 1.0}
-#define COL_WALL SDL_FColor{1.0, 1.0, 0.85, 1.0}
-#define COL_ROOF SDL_FColor{0.65, 0.0, 0.0, 1.0}
+const SDL_FColor COL_CLEAR = {0.0, 0.0, 0.0, 0.0};
+const SDL_FColor COL_DARK = {0.0, 0.0, 0.0, 1.0};
+const SDL_FColor COL_BRIGHT = {1.0, 1.0, 1.0, 1.0};
+const SDL_FColor COL_R = {1.0, 0.0, 0.0, 1.0};
+const SDL_FColor COL_G = {0.0, 1.0, 0.0, 1.0};
+const SDL_FColor COL_B = {0.0, 0.0, 1.0, 1.0};
+const SDL_FColor COL_WOOD = {0.65, 0.50, 0.39, 1.0};
+const SDL_FColor COL_LEAVES = {0.0, 0.7, 0.0, 1.0};
+const SDL_FColor COL_WALL = {1.0, 1.0, 0.85, 1.0};
+const SDL_FColor COL_ROOF = {0.65, 0.0, 0.0, 1.0};
+// Standard Web Colours
+const SDL_FColor COL_SLATE = {112.0 / 256, 128.0 / 256, 144.0 / 256, 1.0};
+const SDL_FColor COL_LIGHT_SLATE = {119.0 / 256, 136.0 / 256, 153.0 / 256, 1.0};
 
 /*********************** Mini Map */
 #define MINIMAP_SIZE 200

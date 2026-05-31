@@ -2,7 +2,7 @@
 #define PRIMITIVE_H
 
 #include "../_config.h"
-#include "../polygon.h"
+#include "../shapes/all.h"
 #include "../vector3.h"
 
 #define IGNORE_BTM 1
@@ -12,25 +12,23 @@ class Primitive
 {
 public:
     ~Primitive();
-    std::vector<Polygon *> polygons;
+    std::vector<Shape *> shapes;
     std::vector<Point3 *> vertices;
     void triangle_vertex_split(std::vector<Triangle *> &, std::vector<Vector3 *> &);
 };
 
 Primitive::~Primitive()
 {
-    for (auto poly : polygons)
-        delete poly;
+    for (auto shape : shapes)
+        delete shape;
     for (auto point : vertices)
         delete point;
 }
 
-void Primitive::triangle_vertex_split(std::vector<Triangle *> &triangles, std::vector<Vector3 *> &all_vertices)
+void Primitive::triangle_vertex_split(std::vector<Triangle *> &all_triangles, std::vector<Vector3 *> &all_vertices)
 {
-    for (auto poly : polygons)
-    {
-        poly->triangle_split(triangles);
-    }
+    for (auto shape : shapes)
+        shape->triangle_vertex_split(all_triangles, all_vertices);
     for (auto vertex : vertices)
         all_vertices.push_back(vertex);
 }

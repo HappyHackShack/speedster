@@ -31,7 +31,8 @@ public:
     void calc_cam_rel(Vector3 &pos, float rot);
     Vector3 cross_prod(Vector3 &v2) const;
     float dot_prod(Vector3 &v2) const;
-    float len() const;
+    float len(Vector3 &v2) const;
+    float distance() const;
     void print() const;
     void print_cam() const;
     void print_scrn() const;
@@ -101,9 +102,14 @@ float Vector3::dot_prod(Vector3 &v2) const
     return (x * v2.x + y * v2.y + z * v2.z);
 }
 
-float Vector3::len() const
+float Vector3::len(Vector3 &v2) const
 {
-    return sqrt(x * x + y * y + z * z);
+    return sqrt((x-v2.x) * (x-v2.x) + (y-v2.y) * (y-v2.y) + (z-v2.z) * (z-v2.z));
+}
+
+float Vector3::distance() const
+{
+    return sqrt(cam_rel_x * cam_rel_x + cam_rel_y * cam_rel_y + cam_rel_z * cam_rel_z);
 }
 
 void Vector3::print() const

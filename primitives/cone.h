@@ -20,9 +20,9 @@ Cone::Cone(Point3 *p1, float height, float radius, unsigned sectors, SDL_FColor 
     }
     // make polygons (and add)
     if ((ignore_flags & IGNORE_BTM) == 0)
-        polygons.push_back(new Polygon(sectors, vertices.data(), col));
+        shapes.push_back(new Polygon(sectors, vertices.data(), col));
     for (int i = 0; i < sectors; i++)
-        polygons.push_back(new Polygon(3, (Point3 *[]){vertices[i], vertices[(i + 1) % sectors], top}, col));
+        shapes.push_back(new Polygon(3, (Point3 *[]){vertices[i], vertices[(i + 1) % sectors], top}, col));
     vertices.push_back(top);
 }
 

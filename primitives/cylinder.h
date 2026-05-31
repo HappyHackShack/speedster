@@ -25,11 +25,11 @@ Cylinder::Cylinder(Point3 *p1, float height, float radius, unsigned sectors, SDL
     }
     // make polygons (and add)
     if ((ignore_flags & IGNORE_BTM) == 0)
-        polygons.push_back(new Polygon(sectors, Bpts, col));
+        shapes.push_back(new Polygon(sectors, Bpts, col));
     if ((ignore_flags & IGNORE_TOP) == 0)
-        polygons.push_back(new Polygon(sectors, Tpts, col));
+        shapes.push_back(new Polygon(sectors, Tpts, col));
     for (int i = 0; i < sectors; i++)
-        polygons.push_back(new Polygon(
+        shapes.push_back(new Polygon(
             4, (Point3 *[]){Bpts[i], Bpts[(i + 1) % sectors], Tpts[(i + 1) % sectors], Tpts[i]}, col));
 }
 

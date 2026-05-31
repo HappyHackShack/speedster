@@ -22,13 +22,13 @@ Cuboid::Cuboid(Point3 *p1, Point3 *p2, SDL_FColor col, unsigned ignore_flags = 0
 
     // make polygons (and add)
     if ((ignore_flags & IGNORE_BTM) == 0)
-        polygons.push_back(new Polygon(4, (Point3 *[]){vertices[0], vertices[1], vertices[3], vertices[2]}, col)); // Btm
-    polygons.push_back(new Polygon(4, (Point3 *[]){vertices[0], vertices[2], vertices[6], vertices[4]}, col));     // Left
-    polygons.push_back(new Polygon(4, (Point3 *[]){vertices[0], vertices[1], vertices[5], vertices[4]}, col));     // Front
-    polygons.push_back(new Polygon(4, (Point3 *[]){vertices[1], vertices[3], vertices[7], vertices[5]}, col));     // Right
-    polygons.push_back(new Polygon(4, (Point3 *[]){vertices[2], vertices[3], vertices[7], vertices[6]}, col));     // Back
+        shapes.push_back(new Polygon(4, (Point3 *[]){vertices[0], vertices[1], vertices[3], vertices[2]}, col)); // Btm
+    shapes.push_back(new Polygon(4, (Point3 *[]){vertices[0], vertices[2], vertices[6], vertices[4]}, col));     // Left
+    shapes.push_back(new Polygon(4, (Point3 *[]){vertices[0], vertices[1], vertices[5], vertices[4]}, col));     // Front
+    shapes.push_back(new Polygon(4, (Point3 *[]){vertices[1], vertices[3], vertices[7], vertices[5]}, col));     // Right
+    shapes.push_back(new Polygon(4, (Point3 *[]){vertices[2], vertices[3], vertices[7], vertices[6]}, col));     // Back
     if ((ignore_flags & IGNORE_TOP) == 0)
-        polygons.push_back(new Polygon(4, (Point3 *[]){vertices[4], vertices[5], vertices[7], vertices[6]}, col)); // Top
+        shapes.push_back(new Polygon(4, (Point3 *[]){vertices[4], vertices[5], vertices[7], vertices[6]}, col)); // Top
 }
 
 #endif

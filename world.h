@@ -5,11 +5,13 @@
 #include "vector3.h"
 #include "triangle.h"
 #include "objects/all.h"
+#include "shapes/all.h"
 
 class World
 {
 public:
     std::vector<Object *> objects;
+    std::vector<Shape *> shapes;
     std::vector<Point3 *> vertices;
     std::vector<Triangle *> triangles;
     ~World();
@@ -35,8 +37,9 @@ void World::load_level(std::string file_name)
 
     std::getline(ipf, line);
     std::println("{}", line);
-    // std::istringstream words(line);
-
+    
+    shapes.push_back(new Plane(-50,-50,50,50,10,COL_LIGHT_SLATE));
+    
     if (1)
     {
         while (std::getline(ipf, line))
@@ -49,19 +52,19 @@ void World::load_level(std::string file_name)
             params >> ot;
             switch (ot)
             {
-            case 'H':
+                case 'H':
                 params >> x >> y >> s;
                 z = 0; // until we know floor height
                 if (DEBUG)
-                    std::println("Making HOUSE @ {},{},{} x{}", x, y, z, s);
+                std::println("Making HOUSE @ {},{},{} x{}", x, y, z, s);
                 pt.set(x, y, z);
                 objects.push_back(new House(&pt, s));
                 break;
-            case 'T':
+                case 'T':
                 params >> x >> y >> s;
                 z = 0; // until we know floor height
                 if (DEBUG)
-                    std::println("Making TREE @ {},{},{} x{}", x, y, z, s);
+                std::println("Making TREE @ {},{},{} x{}", x, y, z, s);
                 pt.set(x, y, z);
                 objects.push_back(new Tree(&pt, s));
                 break;
@@ -85,10 +88,10 @@ void World::print()
 
 void World::triangle_vertex_split()
 {
+    for (auto sh : shapes)
+        sh->triangle_vertex_split(triangles, vertices);
     for (auto obj : objects)
-    {
         obj->triangle_vertex_split(triangles, vertices);
-    }
 }
 
 void World::unload_level()

@@ -2,12 +2,12 @@
 #define REALITY_H
 
 #include "_config.h"
-#include "vector3.h"
+#include "objects/all.h"
+#include "primitives/all.h"
+#include "reality.h"
 #include "screen.h"
 #include "triangle.h"
-#include "primitives/all.h"
-#include "objects/all.h"
-#include "reality.h"
+#include "vector3.h"
 #include "world.h"
 
 class Reality
@@ -23,6 +23,7 @@ private:
     bool running, active, debug = false;
     GfxScreen &screen;
     World &world;
+    std::vector<Triangle *> visible_tris;
     float angle = 0;
     Vector3 pos{0, 0, 2};
     Vector3 move_w{0, .5, 0};
@@ -120,11 +121,22 @@ void Reality::render()
         if (vertex->cam_rel_y > 0)
             vertex->project_2d();
     }
+
+    // Step 1 - Generate list of visible triangles
     for (auto tri : world.triangles)
     {
         // If nothing is in field of vision, then move on... TODO :- EXCEPT WHEN IT OBLITERATES THE SCREEN
-        if ((!tri->vertices[0]->visible) && (!tri->vertices[1]->visible) && (!tri->vertices[2]->visible))
-            continue;
+        if ((tri->vertices[0]->visible) || (tri->vertices[1]->visible) || (tri->vertices[2]->visible))
+        {
+            tri->calc_distance();
+            // TODO - add this is distance order
+            visible_tris.push_back(tri);
+        }
+    }
+
+    // Step 2 - Render visible triangles
+    for (auto tri : visible_tris)
+    {
         // Calc how many verts are in-front of the camera
         int infrontCount = 0;
         for (int i = 0; i < 3; i++)
@@ -133,6 +145,7 @@ void Reality::render()
         switch (infrontCount)
         {
         case 3:
+            tri->calc_distance();
             screen.draw_triangle(
                 tri->vertices[0]->scrn, tri->vertices[1]->scrn,
                 tri->vertices[2]->scrn, tri->colour, COL_DARK);
@@ -164,36 +177,7 @@ void Reality::render()
             break;
         }
     }
-    /*
-    SDL_FPoint t1{125, 25}, t2{200, 75}, t3{125, 125};
-    screen.draw_triangle(t1, t2, t3, COL_CLEAR, COL_WOOD);
-    t1.x += 100;
-    t2.x += 100;
-    t3.x += 100;
-    screen.draw_triangle(t1, t2, t3, COL_LEAVES, COL_CLEAR);
-    t1.x += 100;
-    t2.x += 100;
-    t3.x += 100;
-    screen.draw_triangle(t1, t2, t3, COL_WALL, COL_LEAVES);
-
-    // Basic Quadrilaterals
-    SDL_FPoint q1{125, 200}, q2{200, 225}, q3{200, 275}, q4{125, 325};
-    screen.draw_quad(q1, q2, q3, q4, COL_CLEAR, COL_LEAVES);
-    q1.x += 100;
-    q2.x += 100;
-    q3.x += 100;
-    q4.x += 100;
-    screen.draw_quad(q1, q2, q3, q4, COL_LEAVES, COL_CLEAR);
-    q1.x += 100;
-    q2.x += 100;
-    q3.x += 100;
-    q4.x += 100;
-    screen.draw_quad(q1, q2, q3, q4, COL_SLATE, COL_ROOF);
-    */
-    /*
-    for (int i = 0; i < world.triangles.size(); i++)
-    world.triangles[i]->render(screen);
-    */
+    visible_tris.clear();
 }
 
 #endif

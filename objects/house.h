@@ -1,10 +1,7 @@
 #ifndef HOUSE_H
 #define HOUSE_H
 
-#include "../_config.h"
-#include "../vector3.h"
 #include "object.h"
-#include "../primitives/all.h"
 
 class House : public Object
 {
