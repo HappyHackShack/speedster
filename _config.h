@@ -24,7 +24,7 @@
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
-#define DEBUG true
+#define DEBUG false
 
 /*********************** SCREEN */
 #define SCRN_TITLE "Full 3d Speedster Racing"
@@ -35,6 +35,8 @@ const int SCRN_H_2 = SCRN_H / 2;
 const int SCRN_W_4 = SCRN_W / 4;
 const int SCRN_3H_4 = 3 * SCRN_H / 4;
 const int SCRN_H_4 = SCRN_H / 4;
+const int MAX_RENDER_DISTANCE = 200;
+const int MAX_TRIANGLES = 1000;
 
 const SDL_FColor COL_CLEAR = {0.0, 0.0, 0.0, 0.0};
 const SDL_FColor COL_DARK = {0.0, 0.0, 0.0, 1.0};

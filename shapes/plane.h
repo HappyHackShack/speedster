@@ -23,8 +23,8 @@ Plane::Plane(float x1, float y1, float x2, float y2, float size, SDL_FColor col)
             extra_verts.push_back(p2);
             extra_verts.push_back(p3);
             extra_verts.push_back(p4);
-            triangles.push_back(new Triangle(p1, p2, p3, colour));
-            triangles.push_back(new Triangle(p1, p3, p4, colour));
+            triangles.push_back(new Triangle(p1, p2, p3, colour, size * 2));
+            triangles.push_back(new Triangle(p1, p3, p4, colour, size * 2));
         }
 }
 

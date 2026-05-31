@@ -15,7 +15,7 @@ class Reality
 public:
     float gravity;
     Reality(GfxScreen &scrn, World &wrld) : screen(scrn), world(wrld) {};
-    void handle_input();
+    void handle_input(float delta);
     void loop();
     void render();
 
@@ -26,12 +26,13 @@ private:
     std::vector<Triangle *> visible_tris;
     float angle = 0;
     Vector3 pos{0, 0, 2};
-    Vector3 move_w{0, .5, 0};
-    Vector3 move_e{0.5, 0, 0};
+    Vector3 move_w{0, 30, 0};
+    Vector3 move_e{30, 0, 0};
+    Vector3 move_u{0, 0, 10};
     Vector3 move{};
 };
 
-void Reality::handle_input()
+void Reality::handle_input(float delta)
 {
     SDL_Event event;
     // 1. Handle "Instant" Actions (Events)
@@ -43,10 +44,13 @@ void Reality::handle_input()
         {
             if (event.key.scancode == SDL_SCANCODE_ESCAPE)
                 running = false;
-            if (event.key.scancode == SDL_SCANCODE_SPACE)
-                active = !active;
-            if (event.key.scancode == SDL_SCANCODE_LSHIFT)
-                debug = true;
+            if (DEBUG)
+            {
+                if (event.key.scancode == SDL_SCANCODE_SPACE)
+                    active = !active;
+                if (event.key.scancode == SDL_SCANCODE_PRINTSCREEN)
+                    debug = true;
+            }
         }
         /*
         if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
@@ -61,31 +65,44 @@ void Reality::handle_input()
     const bool *state = SDL_GetKeyboardState(NULL);
     if (state[SDL_SCANCODE_W])
     {
-        move = move_w;
+        move = move_w * delta;
         move.rotate_about_z(angle);
         pos.translate(move);
     }
     if (state[SDL_SCANCODE_S])
     {
-        move = move_w;
+        move = move_w * delta;
         move.rotate_about_z(angle);
         pos.translate_r(move);
     }
     if (state[SDL_SCANCODE_A])
-        angle += M_PIf / 60;
+        angle += M_PIf * delta;
     if (state[SDL_SCANCODE_D])
-        angle -= M_PIf / 60;
+        angle -= M_PIf * delta;
     if (state[SDL_SCANCODE_E])
     {
-        move = move_e;
+        move = move_e * delta;
         move.rotate_about_z(angle);
         pos.translate(move);
     }
     if (state[SDL_SCANCODE_Q])
     {
-        move = move_e;
+        move = move_e * delta;
         move.rotate_about_z(angle);
         pos.translate_r(move);
+    }
+    if (DEBUG)
+    {
+        if (state[SDL_SCANCODE_PAGEUP])
+        {
+            move = move_u * delta;
+            pos.translate(move);
+        }
+        if (state[SDL_SCANCODE_PAGEDOWN])
+        {
+            move = move_u * delta;
+            pos.translate_r(move);
+        }
     }
 }
 
@@ -96,7 +113,7 @@ void Reality::loop()
     while (running)
     {
         auto t0 = microsecs();
-        handle_input();
+        handle_input(dt);
         screen.clear();
         // if (active)
         // physics(dt);
@@ -114,7 +131,6 @@ void Reality::render()
     if (!active)
         return;
 
-    Vector3 cam{0, 0, 10};
     for (auto vertex : world.vertices)
     {
         vertex->calc_cam_rel(pos, angle);
@@ -122,17 +138,41 @@ void Reality::render()
             vertex->project_2d();
     }
 
+    visible_tris.reserve(world.triangles.size());
+    // Step 0 - Calc all triangle distances
+    for (auto tri : world.triangles)
+        tri->calc_distance();
+
     // Step 1 - Generate list of visible triangles
+    int vis_count = 0;
     for (auto tri : world.triangles)
     {
         // If nothing is in field of vision, then move on... TODO :- EXCEPT WHEN IT OBLITERATES THE SCREEN
         if ((tri->vertices[0]->visible) || (tri->vertices[1]->visible) || (tri->vertices[2]->visible))
         {
-            tri->calc_distance();
+            float d = tri->distance;
             // TODO - add this is distance order
-            visible_tris.push_back(tri);
+            if (d > MAX_RENDER_DISTANCE)
+                continue;
+            bool placed = false;
+            for (int j = 0; j < vis_count; j++)
+            {
+                if (d > visible_tris[j]->distance)
+                {
+                    visible_tris.insert(visible_tris.begin() + j, tri);
+                    placed = true;
+                    break;
+                }
+            }
+            if (!placed)
+                visible_tris.push_back(tri);
+            vis_count++;
         }
     }
+    if (visible_tris.size() > MAX_TRIANGLES)
+        visible_tris.erase(visible_tris.begin(), visible_tris.begin() + visible_tris.size() - MAX_TRIANGLES);
+    if (debug)
+        std::println("{} of {} visible triangles", visible_tris.size(), world.triangles.size());
 
     // Step 2 - Render visible triangles
     for (auto tri : visible_tris)
@@ -145,10 +185,9 @@ void Reality::render()
         switch (infrontCount)
         {
         case 3:
-            tri->calc_distance();
             screen.draw_triangle(
                 tri->vertices[0]->scrn, tri->vertices[1]->scrn,
-                tri->vertices[2]->scrn, tri->colour, COL_DARK);
+                tri->vertices[2]->scrn, tri->colour, DEBUG ? COL_DARK : COL_CLEAR);
             break;
         case 2:
             // calc the 2 intersection points
@@ -171,7 +210,7 @@ void Reality::render()
             else
                 screen.draw_triangle(
                     tri->vertices[0]->scrn, tri->vertices[1]->scrn,
-                    tri->vertices[2]->scrn, tri->colour, COL_DARK);
+                    tri->vertices[2]->scrn, tri->colour);
             // calc the 2 intersection point
             // plot triangle
             break;

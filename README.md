@@ -6,7 +6,7 @@
         - [x] 1 visible
     - [x] optional surfaces
     - [x] optional shapes
-    - [ ] distance filtering
+    - [x] distance filtering
     - [ ] surface elimination
     - depth?
 - [ ] <b>make car model(s)</b>
@@ -35,6 +35,8 @@
 - air with ramps ?
 - drifting ?
 - air resistance ?
+- objects
+    - have their own motion, e.g. spin
 
 ## future gameplay ideas:
 

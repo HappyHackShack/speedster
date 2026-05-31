@@ -43,7 +43,8 @@ GfxScreen::GfxScreen(float w = SCRN_W, float h = SCRN_H) : width(w), height(h)
         SDL_Log("Window/Renderer failed: %s", SDL_GetError());
         exit(1);
     }
-    SDL_SetRenderVSync(canvas, 1);
+    // SDL_SetWindowFullscreen(window, true);
+    SDL_SetRenderVSync(canvas, 0);
 }
 
 GfxScreen::~GfxScreen()
@@ -56,8 +57,8 @@ GfxScreen::~GfxScreen()
 
 void GfxScreen::clear()
 {
+    SDL_RenderClear(canvas);
     SDL_FRect whole_scrn = {0, 0, SCRN_W, SCRN_H};
-
     SDL_SetRenderDrawColorFloat(canvas, 0, 0, 0, 1);
     SDL_RenderFillRect(canvas, &whole_scrn);
 }
@@ -92,7 +93,7 @@ void GfxScreen::draw_quad(SDL_FPoint p1, SDL_FPoint p2, SDL_FPoint p3, SDL_FPoin
 }
 
 void GfxScreen::draw_triangle(SDL_FPoint p1, SDL_FPoint p2,
-                              SDL_FPoint p3, SDL_FColor fill, SDL_FColor border)
+                              SDL_FPoint p3, SDL_FColor fill, SDL_FColor border = COL_CLEAR)
 {
     // Render the filled triangle
     if (fill.a != 0)
@@ -114,6 +115,7 @@ void GfxScreen::draw_triangle(SDL_FPoint p1, SDL_FPoint p2,
 
 void GfxScreen::update()
 {
+    SDL_SetRenderTarget(canvas, NULL);
     SDL_RenderPresent(canvas);
 }
 
