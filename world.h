@@ -22,7 +22,8 @@ public:
 World::~World()
 {
     unload_level();
-    std::println("Bye-bye");
+    if (DEBUG)
+        std::println("Bye-bye");
 }
 
 void World::load_level(std::string file_name)
@@ -40,7 +41,6 @@ void World::load_level(std::string file_name)
     {
         while (std::getline(ipf, line))
         {
-            // std::println("{}", line);
             Point3 pt;
             char ot;
             int x, y, z;
@@ -52,14 +52,16 @@ void World::load_level(std::string file_name)
             case 'H':
                 params >> x >> y >> s;
                 z = 0; // until we know floor height
-                std::println("Making HOUSE @ {},{},{} x{}", x, y, z, s);
+                if (DEBUG)
+                    std::println("Making HOUSE @ {},{},{} x{}", x, y, z, s);
                 pt.set(x, y, z);
                 objects.push_back(new House(&pt, s));
                 break;
             case 'T':
                 params >> x >> y >> s;
                 z = 0; // until we know floor height
-                std::println("Making TREE @ {},{},{} x{}", x, y, z, s);
+                if (DEBUG)
+                    std::println("Making TREE @ {},{},{} x{}", x, y, z, s);
                 pt.set(x, y, z);
                 objects.push_back(new Tree(&pt, s));
                 break;

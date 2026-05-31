@@ -5,6 +5,9 @@
 #include "../polygon.h"
 #include "../vector3.h"
 
+#define IGNORE_BTM 1
+#define IGNORE_TOP 2
+
 class Primitive
 {
 public:

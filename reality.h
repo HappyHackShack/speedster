@@ -151,9 +151,14 @@ void Reality::render()
                             tri->vertices[j]->project_intersect(tri->vertices[i]);
                         }
             }
-            screen.draw_triangle(
-                tri->vertices[0]->scrn, tri->vertices[1]->scrn,
-                tri->vertices[2]->scrn, COL_B, COL_BRIGHT);
+            if (DEBUG)
+                screen.draw_triangle(
+                    tri->vertices[0]->scrn, tri->vertices[1]->scrn,
+                    tri->vertices[2]->scrn, COL_B, COL_BRIGHT);
+            else
+                screen.draw_triangle(
+                    tri->vertices[0]->scrn, tri->vertices[1]->scrn,
+                    tri->vertices[2]->scrn, tri->colour, COL_DARK);
             // calc the 2 intersection point
             // plot triangle
             break;

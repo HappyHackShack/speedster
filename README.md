@@ -4,6 +4,7 @@
     - [ ] make point visible triangle recreator
         - [ ] 2 visible
         - [x] 1 visible
+    - [x] optional surfaces
     - [ ] distance filtering
     - [ ] surface elimination
     - depth?
@@ -39,6 +40,7 @@
 - obstacles
     - signs on turns
     - randomly placed trees
+    - random types of trees
     - mud
     - <b>weather events</b>
     - water?

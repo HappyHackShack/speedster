@@ -6,10 +6,10 @@
 class Cylinder : public Primitive
 {
 public:
-    Cylinder(Point3 *p1, float height, float radius, unsigned sectors, SDL_FColor col);
+    Cylinder(Point3 *p1, float height, float radius, unsigned sectors, SDL_FColor col, unsigned ignore_flags);
 };
 
-Cylinder::Cylinder(Point3 *p1, float height, float radius, unsigned sectors, SDL_FColor col)
+Cylinder::Cylinder(Point3 *p1, float height, float radius, unsigned sectors, SDL_FColor col, unsigned ignore_flags = 0)
 {
     // make the points
     Point3 *Bpts[sectors];
@@ -24,8 +24,10 @@ Cylinder::Cylinder(Point3 *p1, float height, float radius, unsigned sectors, SDL
         vertices.push_back(Tpts[i]);
     }
     // make polygons (and add)
-    polygons.push_back(new Polygon(sectors, Bpts, col));
-    polygons.push_back(new Polygon(sectors, Tpts, col));
+    if ((ignore_flags & IGNORE_BTM) == 0)
+        polygons.push_back(new Polygon(sectors, Bpts, col));
+    if ((ignore_flags & IGNORE_TOP) == 0)
+        polygons.push_back(new Polygon(sectors, Tpts, col));
     for (int i = 0; i < sectors; i++)
         polygons.push_back(new Polygon(
             4, (Point3 *[]){Bpts[i], Bpts[(i + 1) % sectors], Tpts[(i + 1) % sectors], Tpts[i]}, col));
