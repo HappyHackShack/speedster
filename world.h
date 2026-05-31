@@ -7,6 +7,8 @@
 #include "objects/all.h"
 #include "shapes/all.h"
 
+#define MAP_SIZE 100
+
 class World
 {
 public:
@@ -14,6 +16,7 @@ public:
     std::vector<Shape *> shapes;
     std::vector<Point3 *> vertices;
     std::vector<Triangle *> triangles;
+    std::vector<short> height_map;
     ~World();
     void load_level(std::string file_name);
     void print();
@@ -37,10 +40,20 @@ void World::load_level(std::string file_name)
 
     std::getline(ipf, line);
     std::println("{}", line);
-    
-    shapes.push_back(new Plane(-50,-50,50,50,2,0,COL_LIGHT_SLATE));
-    //shapes.push_back(new Plane(-50,-50,50,50,2,10,COL_LIGHT_SLATE));
-    
+
+    height_map.assign((MAP_SIZE + 1) * (MAP_SIZE + 1), 0);
+    height_map[MAP_SIZE * 5 + 10] = 10;
+    height_map[MAP_SIZE * 10 + 20] = 15;
+    height_map[MAP_SIZE * 15 + 30] = 20;
+    for (int y = 10; y < 20; y++)
+        for (int x = 10; x < 20; x++)
+            height_map[MAP_SIZE * (y) + x] = 20 * (10 - (abs(15 - x) + abs(15 - y)));
+    if (DEBUG)
+        std::println("Test values set");
+
+    shapes.push_back(new Plane(MAP_SIZE, MAP_SIZE, height_map, 2, COL_LIGHT_SLATE));
+    // shapes.push_back(new Plane(-50,-50,50,50,2,10,COL_LIGHT_SLATE));
+
     if (1)
     {
         while (std::getline(ipf, line))
@@ -53,19 +66,19 @@ void World::load_level(std::string file_name)
             params >> ot;
             switch (ot)
             {
-                case 'H':
+            case 'H':
                 params >> x >> y >> s;
                 z = 0; // until we know floor height
                 if (DEBUG)
-                std::println("Making HOUSE @ {},{},{} x{}", x, y, z, s);
+                    std::println("Making HOUSE @ {},{},{} x{}", x, y, z, s);
                 pt.set(x, y, z);
                 objects.push_back(new House(&pt, s));
                 break;
-                case 'T':
+            case 'T':
                 params >> x >> y >> s;
                 z = 0; // until we know floor height
                 if (DEBUG)
-                std::println("Making TREE @ {},{},{} x{}", x, y, z, s);
+                    std::println("Making TREE @ {},{},{} x{}", x, y, z, s);
                 pt.set(x, y, z);
                 objects.push_back(new Tree(&pt, s));
                 break;
