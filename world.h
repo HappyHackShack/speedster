@@ -38,7 +38,8 @@ void World::load_level(std::string file_name)
     std::getline(ipf, line);
     std::println("{}", line);
     
-    shapes.push_back(new Plane(-50,-50,50,50,2,COL_LIGHT_SLATE));
+    shapes.push_back(new Plane(-50,-50,50,50,2,0,COL_LIGHT_SLATE));
+    //shapes.push_back(new Plane(-50,-50,50,50,2,10,COL_LIGHT_SLATE));
     
     if (1)
     {

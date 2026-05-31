@@ -48,7 +48,7 @@ void Reality::handle_input(float delta)
             {
                 if (event.key.scancode == SDL_SCANCODE_SPACE)
                     active = !active;
-                if (event.key.scancode == SDL_SCANCODE_PRINTSCREEN)
+                if (event.key.scancode == SDL_SCANCODE_LALT)
                     debug = true;
             }
         }
@@ -141,15 +141,22 @@ void Reality::render()
     visible_tris.reserve(world.triangles.size());
     // Step 0 - Calc all triangle distances
     for (auto tri : world.triangles)
-        tri->calc_distance();
-
+        tri->calc_mid();
     // Step 1 - Generate list of visible triangles
     int vis_count = 0;
     for (auto tri : world.triangles)
     {
-        // If nothing is in field of vision, then move on... TODO :- EXCEPT WHEN IT OBLITERATES THE SCREEN
-        if ((tri->vertices[0]->visible) || (tri->vertices[1]->visible) || (tri->vertices[2]->visible))
+        if ((tri->vertices[0]->visible) || (tri->vertices[1]->visible) ||
+            (tri->vertices[2]->visible))
         {
+            float rough_d = (abs(tri->midpoint.cam_rel_x) + abs(tri->midpoint.cam_rel_y) +
+                             abs(tri->midpoint.cam_rel_z));
+            if (rough_d > (MAX_RENDER_DISTANCE*1.)){
+
+                //std::println("aa");
+                continue;
+            }
+                tri->calc_distance();
             float d = tri->distance;
             // TODO - add this is distance order
             if (d > MAX_RENDER_DISTANCE)
