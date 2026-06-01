@@ -151,12 +151,13 @@ void Reality::render()
         {
             float rough_d = (abs(tri->midpoint.cam_rel_x) + abs(tri->midpoint.cam_rel_y) +
                              abs(tri->midpoint.cam_rel_z));
-            if (rough_d > (MAX_RENDER_DISTANCE*1.)){
+            if (rough_d > (MAX_RENDER_DISTANCE * 1.))
+            {
 
-                //std::println("aa");
+                // std::println("aa");
                 continue;
             }
-                tri->calc_distance();
+            tri->calc_distance();
             float d = tri->distance;
             // TODO - add this is distance order
             if (d > MAX_RENDER_DISTANCE)
@@ -210,14 +211,10 @@ void Reality::render()
                             tri->vertices[j]->project_intersect(tri->vertices[i]);
                         }
             }
-            if (DEBUG)
-                screen.draw_triangle(
-                    tri->vertices[0]->scrn, tri->vertices[1]->scrn,
-                    tri->vertices[2]->scrn, COL_B, COL_BRIGHT);
-            else
-                screen.draw_triangle(
-                    tri->vertices[0]->scrn, tri->vertices[1]->scrn,
-                    tri->vertices[2]->scrn, tri->colour);
+            screen.draw_triangle(
+                tri->vertices[0]->scrn, tri->vertices[1]->scrn,
+                tri->vertices[2]->scrn, DEBUG ? COL_B : tri->colour,
+                DEBUG ? COL_BRIGHT : COL_CLEAR);
             // calc the 2 intersection point
             // plot triangle
             break;
