@@ -1,7 +1,7 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-#include "_config.h"
+#include "../_config.h"
 #include "vector3.h"
 
 class Triangle

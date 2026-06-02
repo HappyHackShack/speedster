@@ -1,28 +1,4 @@
-#ifndef WORLD_H
-#define WORLD_H
-
-#include "_config.h"
-#include "vector3.h"
-#include "triangle.h"
-#include "objects/all.h"
-#include "shapes/all.h"
-
-#define MAP_SIZE 100
-
-class World
-{
-public:
-    std::vector<Object *> objects;
-    std::vector<Shape *> shapes;
-    std::vector<Point3 *> vertices;
-    std::vector<Triangle *> triangles;
-    std::vector<short> height_map;
-    ~World();
-    void load_level(std::string file_name);
-    void print();
-    void unload_level();
-    void triangle_vertex_split();
-};
+#include "world.h"
 
 World::~World()
 {
@@ -34,7 +10,7 @@ World::~World()
 void World::load_level(std::string file_name)
 {
     std::string line;
-    std::ifstream ipf(file_name);
+    std::ifstream ipf("levels" + file_name);
     if (!ipf.is_open())
         throw std::runtime_error("Could not open the level file!");
 
@@ -113,5 +89,3 @@ void World::unload_level()
     for (auto obj : objects)
         delete obj;
 }
-
-#endif

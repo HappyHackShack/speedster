@@ -1,11 +1,11 @@
 #include "_config.h"
-#include "vector3.h"
-#include "screen.h"
-#include "triangle.h"
 #include "primitives/all.h"
 #include "objects/all.h"
-#include "reality.h"
-#include "world.h"
+#include "engine/vector3.h"
+#include "engine/screen.h"
+#include "engine/triangle.h"
+#include "engine/reality.h"
+#include "engine/world.h"
 
 int main()
 {

@@ -2,8 +2,8 @@
 
 #include "_config.h"
 #include "objects/all.h"
-#include "polygon.h"
 #include "primitives/all.h"
+#include "shapes/all.h"
 #include "screen.h"
 #include "vector3.h"
 
