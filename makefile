@@ -1,5 +1,5 @@
 # Compiler and flags
-gxxFLAGS0 = -Wall -Wextra -std=c++17 -Iinclude
+## gxxFLAGS0 = -Wall -Wextra -std=c++17 -Iinclude
 gxxFLAGS = -std=c++23
 
 # Libraries to link (Example: pthread and math libraries)

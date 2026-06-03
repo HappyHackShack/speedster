@@ -10,7 +10,7 @@ World::~World()
 void World::load_level(std::string file_name)
 {
     std::string line;
-    std::ifstream ipf("levels" + file_name);
+    std::ifstream ipf("levels/" + file_name);
     if (!ipf.is_open())
         throw std::runtime_error("Could not open the level file!");
 
